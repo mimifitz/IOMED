@@ -5,10 +5,15 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      municipio=""
 
     };
   }
 
+  componentDidMount() {
+    this.municipio();
+
+  }
 
 
   render() {

@@ -1,0 +1,4 @@
+import '@elastic/eui/dist/eui_theme_light.css';
+
+List of municipals= https://www.el-tiempo.net/api/json/v2/provincias/[CODPROV]/municipios
+Geographical & meteorology infos =https://www.el-tiempo.net/api/json/v2/provincias/[CODPROV]/municipios/[ID]
