@@ -11,7 +11,7 @@ import './App.css';
 export default () => {
     const [selectedOptions, setSelected] = useState([]);
     const [isLoading, setLoading] = useState(false);
-    const [options, setOptions] = useState([]);
+    const [options, setOptions] = useState([{ label: "Abrera" }]);
     const [allOptions, setAllOptions] = useState([]);
     const [municipios, setMunicipios] = useState({});
     // const [citiesData, setCitiesData] = useState({ cities: [], isFetching: false });
@@ -30,7 +30,8 @@ export default () => {
             await response.data.municipios.map(
                 municipio => {
                     setMunicipios(prevMunicipios => ({ ...prevMunicipios, [municipio.NOMBRE]: municipio.CODIGOINE }));
-                    setAllOptions(prevOptions => [...prevOptions, { label: municipio.NOMBRE }]);
+                    setAllOptions(prevAllOptions => [...prevAllOptions, { label: municipio.NOMBRE }]);
+                    setOptions(prevOptions => [...prevOptions, { label: municipio.NOMBRE }]);
                 }
             )
 
@@ -63,39 +64,6 @@ export default () => {
         }, 1200);
     }, []);
 
-    const onCreateOption = (searchValue, flattenedOptions = []) => {
-        const normalizedSearchValue = searchValue.trim().toLowerCase();
-
-        if (!normalizedSearchValue)
-        {
-            return;
-        }
-
-        const newOption = {
-            label: searchValue,
-        };
-
-        // Create the option if it doesn't exist.
-        if (
-            flattenedOptions.findIndex(
-                option => option.value.trim().toLowerCase() === normalizedSearchValue
-            ) === -1
-        )
-        {
-            // Simulate creating this option on the server.
-            allOptions.push(newOption);
-            setOptions([...options, newOption]);
-        }
-
-        // Select the option.
-        setSelected([...selectedOptions, newOption]);
-    };
-
-    useEffect(() => {
-        // Simulate initial load.
-        onSearchChange('');
-    }, [onSearchChange])
-
     return (
         <React.Fragment>
             <EuiHeader position="fixed" theme="dark">El Weather</EuiHeader>
@@ -108,12 +76,11 @@ export default () => {
             <EuiComboBox
                 placeholder="Type your City"
                 async
-                options={allOptions}
+                options={options}
                 selectedOptions={selectedOptions}
                 isLoading={isLoading}
                 onChange={onChange}
                 onSearchChange={onSearchChange}
-                onCreateOption={onCreateOption}
             />
             {/* <DisplayCards /> */}
         </React.Fragment>
