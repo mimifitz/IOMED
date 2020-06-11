@@ -1,42 +1,122 @@
-import React from 'react';
+
+import React, { useState, useEffect, useCallback } from 'react';
+import axios from "axios";
+import { EuiComboBox } from '@elastic/eui';
+import DisplayCards from './DisplayCard';
+import { EuiTitle, EuiSpacer, EuiCode } from "@elastic/eui";
+import { EuiHeader } from "@elastic/eui"
+import '@elastic/eui/dist/eui_theme_light.css'
 import './App.css';
-import DisplayCard from './DisplayCard';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      municipios: ""
+export default () => {
+    const [selectedOptions, setSelected] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+    const [options, setOptions] = useState([]);
+    const [allOptions, setAllOptions] = useState([]);
+    const [municipios, setMunicipios] = useState({});
+    // const [citiesData, setCitiesData] = useState({ cities: [], isFetching: false });
 
+    let searchTimeout;
+    const onChange = selectedOptions => {
+        setSelected(selectedOptions);
     };
-  }
 
-  componentDidMount() {
-    this.fetchMunicipios();
+    const fetchMunicipios = async () => {
+        try
+        {
+            setMunicipios({});
+            setLoading(true);
+            const response = await axios.get("https://www.el-tiempo.net/api/json/v2/provincias/08/municipios");
+            await response.data.municipios.map(
+                municipio => {
+                    setMunicipios(prevMunicipios => ({ ...prevMunicipios, [municipio.NOMBRE]: municipio.CODIGOINE }));
+                    setAllOptions(prevOptions => [...prevOptions, { label: municipio.NOMBRE }]);
+                }
+            )
 
-  }
-  fetchMunicipios() {
-    fetch(`https://www.el-tiempo.net/api/json/v2/provincias/[CODPROV]/municipios`)
-      .then((response) => response.json())
-      .then((response) => {
-        this.setState({ municipios: response.municipios });
-      });
-  }
+            setLoading(false);
+        } catch (error)
+        {
+            console.log(error);
+        }
+    }
 
+    useEffect(() => {
+        fetchMunicipios();
+    }, []);
 
-  render() {
+    const onSearchChange = useCallback(searchValue => {
+        setLoading(true);
+        setOptions([]);
+
+        clearTimeout(searchTimeout);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        searchTimeout = setTimeout(() => {
+            // Simulate a remotely-executed search.
+            setLoading(false);
+            setOptions(
+                allOptions.filter(option =>
+                    option.label.toLowerCase().includes(searchValue.toLowerCase())
+                )
+            );
+        }, 1200);
+    }, []);
+
+    const onCreateOption = (searchValue, flattenedOptions = []) => {
+        const normalizedSearchValue = searchValue.trim().toLowerCase();
+
+        if (!normalizedSearchValue)
+        {
+            return;
+        }
+
+        const newOption = {
+            label: searchValue,
+        };
+
+        // Create the option if it doesn't exist.
+        if (
+            flattenedOptions.findIndex(
+                option => option.value.trim().toLowerCase() === normalizedSearchValue
+            ) === -1
+        )
+        {
+            // Simulate creating this option on the server.
+            allOptions.push(newOption);
+            setOptions([...options, newOption]);
+        }
+
+        // Select the option.
+        setSelected([...selectedOptions, newOption]);
+    };
+
+    useEffect(() => {
+        // Simulate initial load.
+        onSearchChange('');
+    }, [onSearchChange])
+
     return (
-      <div className="App">
-        <header className="App-header">
-          El Weather
-        </header>
+        <React.Fragment>
+            <EuiHeader position="fixed" theme="dark">El Weather</EuiHeader>
+            <EuiTitle size="l">
+                <h1>El Weather</h1>
+            </EuiTitle>
+            <EuiCode language="js"></EuiCode>
 
-        <div>
-          <DisplayCard />
-        </div>
-      </div>
+            <EuiSpacer />
+            <EuiComboBox
+                placeholder="Type your City"
+                async
+                options={allOptions}
+                selectedOptions={selectedOptions}
+                isLoading={isLoading}
+                onChange={onChange}
+                onSearchChange={onSearchChange}
+                onCreateOption={onCreateOption}
+            />
+            {/* <DisplayCards /> */}
+        </React.Fragment>
+
     );
-  }
-}
-
-export default App;
+};

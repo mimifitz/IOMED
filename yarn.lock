@@ -9,6 +9,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@elastic/datemath@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@elastic/datemath/-/datemath-5.0.3.tgz#7baccdab672b9a3ecb7fe8387580670936b58573"
+  integrity sha512-8Hbr1Uyjm5OcYBfEB60K7sCP6U3IXuWDaLaQmYv3UxgI4jqBWbakoemwWvsqPVUvnwEjuX6z7ghPZbefs8xiaA==
+  dependencies:
+    tslib "^1.9.3"
+
 "@elastic/eui@^25.0.0":
   version "25.0.0"
   resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-25.0.0.tgz#3bf293d3516192021e90d5f8282c122fb69792f9"
@@ -281,6 +288,11 @@ memoize-one@^5.1.1:
   resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-5.1.1.tgz#047b6e3199b508eaec03504de71229b8eb1d75c0"
   integrity sha512-HKeeBpWvqiVJD57ZUAsJNm71eHTykffzcLZVYWiVfQeI1rJtuEaS7hQiEpWfVVk18donPwJEcFKIkCmPJNOhHA==
 
+moment@^2.26.0:
+  version "2.26.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.26.0.tgz#5e1f82c6bafca6e83e808b30c8705eed0dcbd39a"
+  integrity sha512-oIixUO+OamkUkwjhAVE18rAMfRJNsNe/Stid/gwHSOfHrOtw9EhAY2AHvdKZ/k/MggcYELFCJz/Sn2pL8b8JMw==
+
 numeral@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/numeral/-/numeral-2.0.6.tgz#4ad080936d443c2561aed9f2197efffe25f4e506"
@@ -475,6 +487,11 @@ tiny-invariant@^1.0.6:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.1.0.tgz#634c5f8efdc27714b7f386c35e6760991d230875"
   integrity sha512-ytxQvrb1cPc9WBEI/HSeYYoGD0kWnGEOR8RY6KomWLBVhqz0RgTwVO9dLrGz7dC+nN9llyI7OKAgRq8Vq4ZBSw==
+
+tslib@^1.9.3:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
+  integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 
 typedarray@^0.0.6:
   version "0.0.6"

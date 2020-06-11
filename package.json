@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "@elastic/eui": "^25.0.0"
+    "@elastic/datemath": "^5.0.3",
+    "@elastic/eui": "^25.0.0",
+    "axios": "^0.19.2",
+    "moment": "^2.26.0"
   }
 }
