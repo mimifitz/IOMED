@@ -1,18 +1,17 @@
 .App {
-  text-align: center;
-  color: rgb(206, 155, 191);
+  background-color: rgb(57, 205, 224);
+  background-size: cover;
 }
 
 
-.App-header {
-  background-color: #f30d93;
-  height: 200px;
-  display: flex;
+.header {
+  background-color: #093c8f;
+  height: 100px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size:50px;
-  color: black;
   margin-bottom: 50px;
 }
+
 
