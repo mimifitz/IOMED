@@ -19,3 +19,4 @@ cd `elweather` and run `yarn install` dependencies related to React.
 ###  Tech Stack
 React for framework
 Elastic UI
+External API from eltiempo.
